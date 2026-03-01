@@ -26,3 +26,16 @@ def train_and_evaluate(
     Returns:
         tuple: Trained model and predicted test values (model, y_pred).
     """
+    # Step 1: Train a linear regression model on scaled feature inputs.
+    model = LinearRegression()
+    model.fit(X_train_scaled, y_train)
+
+    # Step 2: Print intercept and coefficients to inspect learned linear weights.
+    print("\nModel Parameters:")
+    print(f"Intercept: {model.intercept_:.4f}")
+    print("Coefficients:")
+    print(f"  distance_from_grid_km: {model.coef_[0]:.4f}")
+    print(f"  pop_density: {model.coef_[1]:.4f}")
+
+    # Step 3: Predict electrification percentages for the test feature set.
+    y_pred = model.predict(X_test_scaled)
