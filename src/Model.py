@@ -39,3 +39,26 @@ def train_and_evaluate(
 
     # Step 3: Predict electrification percentages for the test feature set.
     y_pred = model.predict(X_test_scaled)
+     # Step 4: Compute common regression metrics and print numeric values.
+    r2 = r2_score(y_test, y_pred)
+    mae = mean_absolute_error(y_test, y_pred)
+    rmse = np.sqrt(mean_squared_error(y_test, y_pred))
+    print("\nEvaluation Metrics:")
+    print(f"R^2 Score: {r2:.4f}")
+    print(f"MAE: {mae:.4f}")
+    print(f"RMSE: {rmse:.4f}")
+
+    # Step 5: Print a small metric interpretation table for quick readability.
+    results_table = pd.DataFrame(
+        {
+            "metric": ["R^2", "MAE", "RMSE"],
+            "value": [round(r2, 4), round(mae, 4), round(rmse, 4)],
+            "meaning": [
+                "Explained variance ratio (higher is better).",
+                "Average absolute error in electrification percentage points.",
+                "Root mean squared error, penalizing larger mistakes.",
+            ],
+        }
+    )
+    print("\nMetric Explanation Table:")
+    print(results_table.to_string(index=False))
