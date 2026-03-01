@@ -22,5 +22,18 @@ def preprocess(
 
     # Step 2: Select target variable as electrification percentage.
     y = df["electrification_pct"]
+    # Step 3: Split data into training and testing sets with fixed reproducibility.
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42
+    )
 
+    # Step 4: Fit scaler on train data only, then transform train and test features.
+    scaler = StandardScaler()
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
+
+    # Step 5: Print sample counts for transparent training/evaluation setup.
+    print(f"Training samples: {len(X_train)}")
+    print(f"Testing samples: {len(X_test)}")
+    return X_train_scaled, X_test_scaled, X_train, X_test, y_train, y_test, scaler
     
