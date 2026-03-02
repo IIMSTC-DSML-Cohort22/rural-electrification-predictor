@@ -62,3 +62,18 @@ def train_and_evaluate(
     )
     print("\nMetric Explanation Table:")
     print(results_table.to_string(index=False))
+    # Step 6: Build and print first 10 predictions with per-row error values.
+    comparison_df = pd.DataFrame(
+        {
+            "actual_pct": y_test.values,
+            "predicted_pct": y_pred,
+        },
+        index=X_test.index,
+    )
+    comparison_df["error"] = comparison_df["actual_pct"] - comparison_df["predicted_pct"]
+    prediction_table = (
+        comparison_df.head(10).reset_index().rename(columns={"index": "village_index"})
+    )
+    print("\nSample Prediction Table (First 10 Rows):")
+    print(prediction_table.to_string(index=False))
+    return model, y_pred
