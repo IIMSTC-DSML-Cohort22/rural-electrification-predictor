@@ -24,5 +24,28 @@ def main() -> None:
     project_root = Path(__file__).resolve().parent
     raw_data_path = project_root / "Data" / "data.csv"
     output_dir = project_root / "outputs"
+    # Step 2: Clean and validate the raw dataset for modeling.
+    cleaned_df = pd.read_csv(raw_data_path)
+    # Step 3: Run exploratory data  analysis and visualize relationships.
+    run_eda(cleaned_df)
+
+    # Step 4: Preprocess cleaned data into train/test splits and scaled arrays.
+    X_train_scaled, X_test_scaled, X_train, X_test, y_train, y_test, scaler = preprocess(
+        cleaned_df
+    )
+    _ = scaler
+
+    # Step 5: Train linear regression and evaluate prediction quality.
+    model, y_pred = train_and_evaluate(
+        X_train_scaled, X_test_scaled, X_train, X_test, y_train, y_test
+    )
+    _ = model
+
+    # Step 6: Save output plots for final result interpretation.
+    plot_results(X_test, y_test, y_pred, str(output_dir))
+
+
+if _name_ == "_main_":
+    main()
 
     
