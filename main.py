@@ -1,10 +1,10 @@
 from pathlib import Path
-from src.data_cleaning import clean_dataset
+from src.Data_Cleaning import clean_dataset
 import pandas as pd
 from src.eda import run_eda
-from src.model import train_and_evaluate
-from src.preprocessing import preprocess
-from src.visualization import plot_results
+from src.Model import train_and_evaluate
+from src.Data_preprocessing import preprocess
+from src.Visualization import plot_results
 
 
 def main() -> None:
@@ -45,7 +45,7 @@ def main() -> None:
     plot_results(X_test, y_test, y_pred, str(output_dir))
 
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     main()
 
     
